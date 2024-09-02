@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        div{
+            border: 2px solid black;
+            margin-bottom: 10px;
+            max-width: 600px;
+            border-radius: 10px;
+            padding: 5px;
+            padding-bottom: 15px;
+        }
+    </style>
+    
+</head>
+<body>
+    <h1>All Recipies</h1>
+    <br>
+    <form method="GET" action="/recipes/new" >
+        <button>Add Recipe</button>
+    </form>
+    <br>
+    <br>
+    <% for(recipe of recipes) { %>
+        <div>
+            <p><%= recipe.name %></p>
+            <p><%= recipe.description %></p>
+            <ul>
+                <% for (let i = 0; i < recipe.ingredients.length; i++) { %>
+                    <li><%= recipe.ingredients[i] %></li>
+                <% } %>
+            </ul>
+            <img src="<%= recipe.imageUrl %>" alt="Recipe Image">
+            <p><%= new Date(recipe.madeOn).toLocaleDateString() %></p>
+            <form method="GET" action="/recipes/<%= recipe._id %>/edit">
+                <button >Edit Recipe</button>
+            </form>
+            <form method="POST" action="/recipes/<%= recipe._id %>/?_method=DELETE">
+                <button >Delete Recipe</button>
+            </form>
+        </div>
+    <% }; %>
+
+</body>
+</html>
